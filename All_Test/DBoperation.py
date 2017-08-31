@@ -89,5 +89,5 @@ if __name__ == "__main__":
     test = DbOperation()
     sql = 'SELECT * FROM `douban` limit 1;'
     result = test.select_one(sql)
-    print(type(result))
-    print(result)
+    # print(type(result))
+    # print(result)
