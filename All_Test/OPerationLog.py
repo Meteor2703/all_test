@@ -6,7 +6,7 @@ import os
 
 
 # 写error级别的日志。
-def write_error_log(file_dir, message, filemode='a'):
+def write_error_log(message, file_dir='C:\Alex\Log', filemode='a'):
     """
     :param file_dir: 日志文件目录
     :param message: 异常日志
@@ -22,7 +22,7 @@ def write_error_log(file_dir, message, filemode='a'):
  
 
 # 记录info
-def write_info_log(file_dir, message, filemode='a'):
+def write_info_log(message, file_dir='C:\Alex\Log', filemode='a'):
     """
     :param file_dir: 日志文件目录
     :param message: 日志详情
@@ -38,7 +38,7 @@ def write_info_log(file_dir, message, filemode='a'):
 
 
 # 记录debug日志
-def write_debug_log(file_dir, message, filemode='a'):
+def write_debug_log(message, file_dir='C:\Alex\Log', filemode='a'):
     """
     :param file_dir: 日志文件目录
     :param message: 日志详情
@@ -54,7 +54,7 @@ def write_debug_log(file_dir, message, filemode='a'):
 
 
 # 记录warning日志
-def write_warning_log(file_dir, message, filemode='a'):
+def write_warning_log(message, file_dir='C:\Alex\Log', filemode='a'):
     """
     :param file_dir: 日志文件目录
     :param message: 日志详情

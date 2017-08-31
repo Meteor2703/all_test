@@ -5,6 +5,7 @@ import pymysql
 import logging
 import os
 from BasicConfig import BasicConfig
+import OPerationLog as OpLog
 
 
 class DbOperation(object):
@@ -13,8 +14,8 @@ class DbOperation(object):
         path = os.path.split(os.path.realpath(__file__))[0] + '\\basic.ini'
         cf = BasicConfig(path)
         config = cf.get_config_by_key('database_test', 'config')
-        print(config)
-        print(type(eval(config)))
+        # print(config)
+        # print(type(eval(config)))
         self.conn = pymysql.connect(**eval(config))
         # items = cf.get_all_items_by_section('database')
         # print(type(items))
@@ -38,11 +39,7 @@ class DbOperation(object):
             return True
         except BaseException as e:
             print('mysql execute error:%d : %s' % (e.args[0], e.args[1]))
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
             return False
 
     # 查询单条数据
@@ -52,11 +49,7 @@ class DbOperation(object):
             results = self.cur.fetchone()
         except BaseException as e:
             results = 'sql001'
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
         finally:
             return results
 
@@ -69,11 +62,7 @@ class DbOperation(object):
             results = self.cur.fetchall()
         except BaseException as e:
             results = 'sql002'
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
         finally:
             return results
 
@@ -85,11 +74,7 @@ class DbOperation(object):
             results = True
         except BaseException as e:
             results = 'sql003'
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
         finally:
             return results
 
