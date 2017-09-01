@@ -1,11 +1,12 @@
 #! /usr/bin/env python
 # _*_ coding:utf-8 _*_
+# __author__ = 'Meteor2703'
+
 
 import urllib
-import logging
-import os
 import http.client
 from BasicConfig import BasicConfig
+import OPerationLog as OpLog
 
 
 class HttpInterface(object):
@@ -17,14 +18,10 @@ class HttpInterface(object):
             if url != '':
                 code = urllib.urlopen(url).getcode()
             else:
-                code = '1000'
+                code = '1001'
         except Exception as e:
             code = '9999'
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
         return code
 
     def __http_get(self, interface_url, headerdata, param, environment='test_environment'):
@@ -41,17 +38,13 @@ class HttpInterface(object):
                 if response.status == 200:
                     return response.read()
                 else:
-                    return "3004"
+                    return "1002"
             elif interface_url == '':
-                return "3002"
+                return "1003"
             else:
-                return "3003"  # 接口地址有问题
+                return "1004"  # 接口地址有问题
         except Exception as e:
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
             return "9999"
 
     def __http_post(self, interface_url, headerdata, param, environment='test_environment'):
@@ -73,11 +66,7 @@ class HttpInterface(object):
             else:
                 return "3003"  # 接口地址有问题
         except Exception as e:
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
             return "9999"
 
     def http_request(self, interface_url, headerdata, param, type, environment='test_environment'):
@@ -87,13 +76,9 @@ class HttpInterface(object):
             elif type.upper() == "POST":
                 result = self.__http_post(interface_url, headerdata, param, environment)
             else:
-                result = '1000'
+                result = '1005'
         except Exception as e:
-            logging.basicConfig(filename=os.path.join(os.getcwd(), './log.txt'),
-                                level=logging.DEBUG,
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-            logger = logging.getLogger(__name__)
-            logger.exception(e)
+            OpLog.write_error_log(e)
             return "9999"
         return result
 

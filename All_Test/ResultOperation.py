@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 # _*_ coding:utf-8 _*_
+# __author__ = 'Meteor2703'
+
 import json
 import OPerationLog as OpLog
 from DBoperation import DbOperation

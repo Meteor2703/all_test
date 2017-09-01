@@ -2,7 +2,6 @@
 # _*_ coding:utf-8 _*_
 
 import pymysql
-import logging
 import os
 from BasicConfig import BasicConfig
 import OPerationLog as OpLog
